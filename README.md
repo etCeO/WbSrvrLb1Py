@@ -6,16 +6,16 @@
 
 # AUTHOR INFO
 
-Full Name: Ethan E. Lopez
-Student ID: 2425516 
-Chapman Email: etlopez@chapman.edu
-Course Number And Section: CPSC-350-03
-Assignment Or Exercise Number: PA2: Not So Super Mario Bros.
+- Full Names: Ethan E. Lopez, Thomas Johnson, William Meyer, Karam Aboul-Hosn
+- Student IDs: 2425516 
+- Chapman Emails: etlopez@chapman.edu, thjohnson@chapman.edu, wmeyer@chapman.edu, kboulhosn@chapman.edu
+- Course Number And Section: CPSC-353-04
+- Assignment Or Exercise Number: Prog-Assign -1: Web Server
 
-ERRORS
+## ERRORS
 
-N/A
+- N/A
 
-SOURCES
+## SOURCES
 
-only resources we learned in class :>
+- only resources we learned in class :>
