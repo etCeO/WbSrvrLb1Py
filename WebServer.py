@@ -7,8 +7,8 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
 
 #Prepare a server socket
 
-#Fill in start
-#Fill in end
+serverSocket.bind(('', 8080))
+serverSocket.listen(1)
 
 while True:
 # continues to serve incoming http requests
@@ -17,7 +17,7 @@ while True:
     connectionSocket, addr = serverSocket.accept()
     # the server accepts incoming connections and returns the address
     try:
-        message = #Fill in start    #Fill in end
+        message = connectionSocket.recv(1024)
         filename = message.split()[1]
         # parses http for filename in terminal at index 1 as a string
         f = open(filename[1:])
@@ -27,8 +27,8 @@ while True:
 
         #Send one HTTP header line into socket
 
-        #Fill in start
-        #Fill in end
+        connectionSocket.send("HTTP/1.1 200 OK\r\n")
+        connectionSocket.send("Content-Type: text/html\r\n\r\n")
 
         #Send the content of the requested file to the client
         for i in range(0, len(outputdata)):
@@ -39,10 +39,10 @@ while True:
     
     except IOError:
         #Send response message for file not found
-        print("404 NOT FOUND")       
+        connectionSocket.send("HTTP/1.1 404 Not Found\r\n")
+        connectionSocket.send("Content-Type: text/html\r\n\r\n")
         #Close client socket       
-        connectionSocket.close()
-    
+        connectionSocket.close() 
 
 serverSocket.close()
 sys.exit()#Terminate the program after sending the corresponding data
