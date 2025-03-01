@@ -1,47 +1,56 @@
 #import socket module
 from socket import *
-import sys # In order to terminate the program
+import sys  # In order to terminate the program
 
-serverPort = 12000
+# Create a TCP server socket
 serverSocket = socket(AF_INET, SOCK_STREAM)
-# creates a server socket using internet protocols and http requests
 
-#Prepare a server socket
+# Prepare a server socket
+serverPort = 80  # You can choose a different port if needed
+serverSocket.bind(('', serverPort))  # Bind to the specified port
+serverSocket.listen(1)  # Listen for incoming connections
 
-serverSocket.bind(('', serverPort))
-serverSocket.listen(1)
+print(f'Server is ready to serve on port {serverPort}...')
 
 while True:
-# continues to serve incoming http requests
-    #Establish the connection
-    print('Ready to serve...')
+    # Establish the connection
     connectionSocket, addr = serverSocket.accept()
-    # the server accepts incoming connections and returns the address
+    print(f'Connection established with {addr}')
+
     try:
+        # Receive the HTTP request message from the client
         message = connectionSocket.recv(1024).decode()
+        
+        if not message:
+            connectionSocket.close()
+            continue
+        
+        # Extract the requested filename from the HTTP request
         filename = message.split()[1]
-        # parses http for filename in terminal at index 1 as a string
-        f = open(filename[1:])
-        # opens requested file
-        outputdata = f.readlines()
-        # reads lines in the file
+        filepath = filename[1:]  # Remove leading '/'
+        
+        # Open and read the requested file
+        f = open(filepath, 'r')
+        outputdata = f.read()
+        f.close()
+        
+        # Send HTTP response header
+        responseHeader = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n"
+        connectionSocket.send(responseHeader.encode())
 
-        #Send one HTTP header line into socket
-
-        connectionSocket.send("HTTP/1.1 200 OK\r\n")
-
-        #Send the content of the requested file to the client
-        for i in range(0, len(outputdata)):
-            connectionSocket.send(outputdata[i].encode())
-            
+        # Send the content of the requested file to the client
+        connectionSocket.send(outputdata.encode())
         connectionSocket.send("\r\n".encode())
-        connectionSocket.close()
-    
-    except IOError:
-        #Send response message for file not found
-        connectionSocket.send("HTTP/1.1 404 Not Found\r\n")
-        #Close client socket       
-        connectionSocket.close() 
 
+    except IOError:
+        # Send response message for file not found
+        errorResponse = "HTTP/1.1 404 Not Found\r\nContent-Type: text/html\r\n\r\n"
+        errorResponse += "<html><head></head><body><h1>404 Not Found</h1></body></html>\r\n"
+        connectionSocket.send(errorResponse.encode())
+
+    # Close client socket
+    connectionSocket.close()
+
+# Close the server socket (not reachable in infinite loop)
 serverSocket.close()
-sys.exit()#Terminate the program after sending the corresponding data
+sys.exit()  # Terminate the program after sending the corresponding data
