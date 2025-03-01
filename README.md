@@ -1,16 +1,21 @@
-# Prog-Assign-1-Web-Server
+# Web Server Lab
 
-- a GitHub repository where we can post and make edits to our first progamming assignment :)
+- Web server that handles one HTTP request at a time. WebServer.py accepts
+  and parses the HTTP request, gets the requested file from the server’s file system, creates an HTTP response
+  message consisting of the requested file preceded by header lines, and then sends the response directly to
+  the client. If the requested file is not present in the server, the server sends an HTTP “404 Not
+  Found” message back to the client.
 
 ----
 
 # AUTHOR INFO
 
 - Full Names: Ethan E. Lopez, Thomas Johnson, William Meyer, Karam Aboul-Hosn
-- Student IDs: 2425516 
-- Chapman Emails: etlopez@chapman.edu, thjohnson@chapman.edu, wmeyer@chapman.edu, kboulhosn@chapman.edu
+- Student IDs: 2425516, 2437165 
+- Chapman Emails: etlopez@chapman.edu, thjohnson@chapman.edu, wmeyer@chapman.edu, kaboulhosn@chapman.edu
 - Course Number And Section: CPSC-353-04
-- Assignment Or Exercise Number: Prog-Assign -1: Web Server
+- Course Name: Data Communication and Computer Networks
+- Assignment Or Exercise Number: Lab 1: Web Server Lab
 
 ## ERRORS
 
@@ -18,4 +23,4 @@
 
 ## SOURCES
 
-- only resources we learned in class :>
+- Content learned in this course and previous courses.
